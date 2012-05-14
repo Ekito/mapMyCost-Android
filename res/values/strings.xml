@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Map My Cost</string>
+    
+    <string name="shot_callback_ok">Photo saved to your album</string>
+    <string name="shot_callback_error">Issue while saving to album</string>
+</resources>
