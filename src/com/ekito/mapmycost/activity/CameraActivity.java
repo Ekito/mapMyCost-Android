@@ -113,7 +113,7 @@ public class CameraActivity extends Activity {
 	}
 	
 	public void goToCosts(View target) {
-		Intent intent = new Intent(this, CostsActivity.class);
+		Intent intent = new Intent(this, TransactionsActivity.class);
 		startActivity(intent);
 	}
 }

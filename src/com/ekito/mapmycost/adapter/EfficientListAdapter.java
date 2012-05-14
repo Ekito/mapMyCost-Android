@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ekito.mapmycost.R;
@@ -87,8 +86,8 @@ public class EfficientListAdapter extends BaseAdapter {
 
 		// Bind the data efficiently with the holder.
 		holder.title.setText(mData.get(position).getTitle());
-		holder.date.setText(mData.get(position).getDate());
-		holder.amount.setText(mData.get(position).getAmount());
+		holder.date.setText(mData.get(position).getDate().toString());
+		holder.amount.setText(mData.get(position).getAmount().toString()+"Û");
 
 		return convertView;
 	}
