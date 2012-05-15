@@ -43,6 +43,33 @@ public class CameraActivity extends Activity {
 			Log.e(TAG, e.getMessage());
 		}
 	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		// release camera resources
+		releaseCamera();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		try {
+			if (camera == null) {
+				camera = getCameraInstance();
+				cameraPreview.setPreview(camera);
+			}
+		} catch (final HardwareException e) {
+		}
+	}
+	
+	protected void releaseCamera() {
+		if (camera != null) {
+			camera.release(); // release the camera for other applications
+			camera = null;
+		}
+	}
 
 	/** A safe way to get an instance of the Camera object. */
 	protected Camera getCameraInstance() throws HardwareException {
