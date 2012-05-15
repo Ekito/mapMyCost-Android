@@ -25,7 +25,7 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 		HashMap<String,Transaction> transactions = new HashMap<String,Transaction>();
 
 		for (int i=0; i<100; i++) {
-			transactions.put("id"+i,new Transaction("Starbucks Coffee", new Date(System.currentTimeMillis()), 15f, (i%3==0)));
+			transactions.put("id"+i,new Transaction("Starbucks Coffee", new Date(System.currentTimeMillis()), "15.00", (i%3==0)));
 		}
 		
 		ArrayList<Transaction> list = new ArrayList<Transaction>(transactions.values());

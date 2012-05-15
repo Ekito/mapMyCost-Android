@@ -6,10 +6,10 @@ public class Transaction {
 	
 	private String title;
 	private Date date;
-	private Float amount;
+	private String amount;
 	private Boolean matched;
 	
-	public Transaction(String title, Date date, Float amount, Boolean matched) {
+	public Transaction(String title, Date date, String amount, Boolean matched) {
 		super();
 		this.title = title;
 		this.date = date;
@@ -29,10 +29,10 @@ public class Transaction {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Float getAmount() {
+	public String getAmount() {
 		return amount;
 	}
-	public void setAmount(Float amount) {
+	public void setAmount(String amount) {
 		this.amount = amount;
 	}
 
