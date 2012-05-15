@@ -21,6 +21,9 @@ public class MMCApplication extends Application {
 		return mHttpImageManager;
 	}
 
+	public void clearCache() {
+		new FileSystemPersistence(BASEDIR).clear();
+	}
 
 	//////PRIVATE
 	private HttpImageManager mHttpImageManager; 

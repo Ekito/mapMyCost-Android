@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,7 +34,6 @@ import com.ekito.mapmycost.task.MappingTask;
 import com.ekito.mapmycost.tools.Formatter;
 import com.ekito.mapmycost.view.MapView;
 import com.ekito.mapmycost.view.Overlay;
-import com.ekito.mapmycost.view.TouchableImageButton;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.OverlayItem;
 
@@ -49,7 +49,7 @@ public class TransactionDetailsActivity extends SherlockMapActivity implements O
 	private TextView title, date, amount;
 	private ImageView picture;
 	private MapView mapView;
-	private TouchableImageButton pickImage;
+	private Button pickImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +63,12 @@ public class TransactionDetailsActivity extends SherlockMapActivity implements O
 		date = (TextView) findViewById(R.id.date);
 		amount = (TextView) findViewById(R.id.amount);
 		picture = (ImageView) findViewById(R.id.picture);
-		pickImage = (TouchableImageButton) findViewById(R.id.pick_image);
+		pickImage = (Button) findViewById(R.id.pick_image);
 		mapView = (MapView) findViewById(R.id.mapview);
 
 		title.setText(mTransaction.getTitle());
 		date.setText(Formatter.formatDate(mTransaction.getDate()));
-		amount.setText(mTransaction.getAmount());
+		amount.setText(mTransaction.getAmount()+"Û");
 
 		mTransactionRH = new RequestHandler(this, "Please wait...") {
 			@Override
@@ -76,7 +76,10 @@ public class TransactionDetailsActivity extends SherlockMapActivity implements O
 				try {
 					mTransaction.setLatitude(result.has("latitude")? Float.valueOf(result.getString("latitude")) : 0f);
 					mTransaction.setLongitude(result.has("longitude")? Float.valueOf(result.getString("longitude")) : 0f);
-					mTransaction.setPicture(result.has("picture")?result.getString("picture") : null);
+					String picture = result.getString("picture");
+					if (picture != null && !picture.equals("null")) {
+						mTransaction.setPicture(result.getString("picture"));
+					}
 					updateUI();
 				} catch (NumberFormatException e) {
 					Log.e(TAG,e.getMessage());
@@ -88,6 +91,12 @@ public class TransactionDetailsActivity extends SherlockMapActivity implements O
 		};
 		mMappingRH = new RequestHandler(this, "Uploading image...") {};
 		startTransactionRequest();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		((MMCApplication)getApplication()).clearCache();
+		super.onDestroy();
 	}
 
 	private void startTransactionRequest() {
@@ -154,7 +163,6 @@ public class TransactionDetailsActivity extends SherlockMapActivity implements O
 
 			@Override
 			public void run() {
-				displayImage(false);
 			}
 		});
 	}
