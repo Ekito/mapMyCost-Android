@@ -9,10 +9,10 @@ public class Transaction {
 	private String amount;
 	private Boolean matched;
 	
-	public Transaction(String title, Date date, String amount, Boolean matched) {
+	public Transaction(String title, Long date, String amount, Boolean matched) {
 		super();
 		this.title = title;
-		this.date = date;
+		this.date = new Date(date);
 		this.amount = amount;
 		this.matched = matched;
 	}
