@@ -1,10 +1,12 @@
 package com.ekito.mapmycost.activity;
 
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
+import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -90,6 +92,14 @@ public class CameraActivity extends Activity {
 	}
 
 	public void shotCallback(String path) {
+
+		float[] output = null;
+		try {
+			ExifInterface blabla = new ExifInterface(path);
+			blabla.getLatLong(output);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		int msg_id;
 		

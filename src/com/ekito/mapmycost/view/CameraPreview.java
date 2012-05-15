@@ -16,6 +16,7 @@ public class CameraPreview extends SurfaceView implements
 
 	private static final String TAG = "CameraPreview";
 
+	@SuppressWarnings("deprecation")
 	public CameraPreview(Context context, Camera camera) {
 		super(context);
 		mCamera = camera;

@@ -1,6 +1,5 @@
 package com.ekito.mapmycost.adapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import com.ekito.mapmycost.R;
 import com.ekito.mapmycost.model.Transaction;
+import com.ekito.mapmycost.tools.Formatter;
 
 public class EfficientListAdapter extends BaseAdapter {
 	
@@ -20,13 +20,11 @@ public class EfficientListAdapter extends BaseAdapter {
 	
 	private LayoutInflater mInflater;
 	private ArrayList<Transaction> mData;
-	private SimpleDateFormat mDf;
 
 	public EfficientListAdapter(Context context, ArrayList<Transaction> data) {
 		// Cache the LayoutInflate to avoid asking for a new one each time.
 		mInflater = LayoutInflater.from(context);
 		mData = data;
-		mDf = new SimpleDateFormat("dd MMMM yyyy - HH:mm:ss.SSS");
 	}
 
 	/**
@@ -47,8 +45,8 @@ public class EfficientListAdapter extends BaseAdapter {
 	 *
 	 * @see android.widget.ListAdapter#getItem(int)
 	 */
-	public Object getItem(int position) {
-		return position;
+	public Transaction getItem(int position) {
+		return mData.get(position);
 	}
 
 	/**
@@ -99,7 +97,7 @@ public class EfficientListAdapter extends BaseAdapter {
 
 		// Bind the data efficiently with the holder.
 		holder.title.setText(transaction.getTitle());
-		holder.date.setText(mDf.format(transaction.getDate()));
+		holder.date.setText(Formatter.formatDate(transaction.getDate()));
 		holder.amount.setText(transaction.getAmount().toString()+"Û");
 		
 		return convertView;
@@ -112,7 +110,7 @@ public class EfficientListAdapter extends BaseAdapter {
 	
 	@Override
 	public int getItemViewType(int position) {
-		return mData.get(position).getMatched()? TYPE_NOT_MATCHED : TYPE_MATCHED;
+		return mData.get(position).isMapped()? TYPE_MATCHED : TYPE_NOT_MATCHED;
 	}
 	
 	public void setData(ArrayList<Transaction> data) {
