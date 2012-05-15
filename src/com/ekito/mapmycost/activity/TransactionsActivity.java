@@ -25,14 +25,25 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 		HashMap<String,Transaction> transactions = new HashMap<String,Transaction>();
 
 		for (int i=0; i<100; i++) {
-			transactions.put("id"+i,new Transaction("Starbucks Coffee", new Date(System.currentTimeMillis()), 15f, (i==3)));
+			transactions.put("id"+i,new Transaction("Starbucks Coffee", new Date(System.currentTimeMillis()), 15f, (i%3==0)));
 		}
 		
 		ArrayList<Transaction> list = new ArrayList<Transaction>(transactions.values());
 		Collections.sort(list, new Comparator<Transaction>() {
 
 	        public int compare(Transaction t1, Transaction t2) {
-	            return t1.getMatched()? -1 : ( t2.getMatched()? +1 : t1.getDate().compareTo(t2.getDate()));
+	        	
+	        	int result = 0;
+	        	
+	        	if (t1.getMatched() && t2.getMatched() || !t1.getMatched() && !t2.getMatched()) {
+	        		result = t1.getDate().compareTo(t2.getDate());
+	        	} else if (t1.getMatched()) {
+	        		result = -1;
+	        	} else if (t2.getMatched()) {
+	        		result = 1;
+	        	}
+	        	
+	            return result;
 	        }
 	    });
 

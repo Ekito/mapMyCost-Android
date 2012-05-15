@@ -14,6 +14,10 @@ import com.ekito.mapmycost.R;
 import com.ekito.mapmycost.model.Transaction;
 
 public class EfficientListAdapter extends BaseAdapter {
+	
+	private static final int TYPE_MATCHED = 0;
+    private static final int TYPE_NOT_MATCHED = 1;
+	
 	private LayoutInflater mInflater;
 	private ArrayList<Transaction> mData;
 	private SimpleDateFormat mDf;
@@ -66,12 +70,18 @@ public class EfficientListAdapter extends BaseAdapter {
 		// A ViewHolder keeps references to children views to avoid unneccessary calls
 		// to findViewById() on each row.
 		ViewHolder holder;
+		int type = getItemViewType(position);
+		
+		Transaction transaction = mData.get(position);
 
 		// When convertView is not null, we can reuse it directly, there is no need
 		// to reinflate it. We only inflate a new View when the convertView supplied
 		// by ListView is null.
 		if (convertView == null) {
-			convertView = mInflater.inflate(R.layout.raw, null);
+			
+			int layout_id = (type == TYPE_MATCHED)? R.layout.raw : R.layout.highlighted_raw;
+
+			convertView = mInflater.inflate(layout_id, null);
 
 			// Creates a ViewHolder and store references to the two children views
 			// we want to bind data to.
@@ -88,15 +98,21 @@ public class EfficientListAdapter extends BaseAdapter {
 		}
 
 		// Bind the data efficiently with the holder.
-		holder.title.setText(mData.get(position).getTitle());
-		holder.date.setText(mDf.format(mData.get(position).getDate()));
-		holder.amount.setText(mData.get(position).getAmount().toString()+"Û");
-
-		if (mData.get(position).getMatched()) {
-			convertView.setBackgroundColor(0xFF00FF00);
-		}
+		holder.title.setText(transaction.getTitle());
+		holder.date.setText(mDf.format(transaction.getDate()));
+		holder.amount.setText(transaction.getAmount().toString()+"Û");
 		
 		return convertView;
+	}
+	
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+	
+	@Override
+	public int getItemViewType(int position) {
+		return mData.get(position).getMatched()? TYPE_NOT_MATCHED : TYPE_MATCHED;
 	}
 
 	static class ViewHolder {
