@@ -83,7 +83,7 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 				int result = 0;
 
 				if (t1.getMatched() && t2.getMatched() || !t1.getMatched() && !t2.getMatched()) {
-					result = t1.getDate().compareTo(t2.getDate());
+					result = -t1.getDate().compareTo(t2.getDate());
 				} else if (t1.getMatched()) {
 					result = -1;
 				} else if (t2.getMatched()) {
