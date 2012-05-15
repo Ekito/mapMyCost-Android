@@ -1,5 +1,6 @@
 package com.ekito.mapmycost.adapter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -15,11 +16,13 @@ import com.ekito.mapmycost.model.Transaction;
 public class EfficientListAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
 	private ArrayList<Transaction> mData;
+	private SimpleDateFormat mDf;
 
 	public EfficientListAdapter(Context context, ArrayList<Transaction> data) {
 		// Cache the LayoutInflate to avoid asking for a new one each time.
 		mInflater = LayoutInflater.from(context);
 		mData = data;
+		mDf = new SimpleDateFormat("dd MMMM yyyy - HH:mm:ss.SSS");
 	}
 
 	/**
@@ -86,9 +89,13 @@ public class EfficientListAdapter extends BaseAdapter {
 
 		// Bind the data efficiently with the holder.
 		holder.title.setText(mData.get(position).getTitle());
-		holder.date.setText(mData.get(position).getDate().toString());
+		holder.date.setText(mDf.format(mData.get(position).getDate()));
 		holder.amount.setText(mData.get(position).getAmount().toString()+"Û");
 
+		if (mData.get(position).getMatched()) {
+			convertView.setBackgroundColor(0xFF00FF00);
+		}
+		
 		return convertView;
 	}
 
