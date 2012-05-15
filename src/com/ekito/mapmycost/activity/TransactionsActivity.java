@@ -16,7 +16,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.ekito.mapmycost.adapter.EfficientListAdapter;
 import com.ekito.mapmycost.communication.RequestHandler;
 import com.ekito.mapmycost.model.DataProvider;
@@ -27,6 +30,7 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 
 	private static final String TAG = "TransactionsActivity";
 	private RequestHandler mRequestHandler;
+	private EfficientListAdapter mAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +44,24 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 				try {
 					if (array != null) {
 
+						HashMap<String, Transaction> lastData = DataProvider.getInstance().getTransactions();
+
 						HashMap<String, Transaction> data = new HashMap<String, Transaction>();
 
 						JSONObject currentTr;
 						for(int i = 0; i<array.length(); i++) {
 							currentTr = array.getJSONObject(i);
-							data.put(currentTr.getString("id"), 
-									new Transaction(
-											currentTr.getString("title"), 
-											currentTr.getLong("date"), 
-											currentTr.getString("amount"), 
-											currentTr.getBoolean("mapped")));
+							if (!lastData.containsKey(currentTr.getString("id"))) {
+								data.put(currentTr.getString("id"), 
+										new Transaction(
+												currentTr.getString("title"), 
+												currentTr.getLong("date"), 
+												currentTr.getString("amount"), 
+												currentTr.getBoolean("mapped")));
+							}
 						}
 
-						DataProvider.getInstance().setTransactions(data);
+						DataProvider.getInstance().addTransactions(data);
 
 						updateList();
 					}
@@ -66,6 +74,25 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 		startTransactionsRequest();
 
 		getListView().setOnItemClickListener(this);
+	}
+	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+		getSupportMenuInflater().inflate(R.menu.transactions, menu);
+        return true;
+    }
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_refresh:
+			startTransactionsRequest();
+			break;
+
+		default:
+			break;
+		}
+		return super.onMenuItemSelected(featureId, item);
 	}
 
 	private void startTransactionsRequest() {
@@ -94,7 +121,13 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 			}
 		});
 
-		setListAdapter(new EfficientListAdapter(this,list));
+		if (mAdapter != null) {
+			mAdapter.setData(list);
+			mAdapter.notifyDataSetChanged();
+		} else {
+			mAdapter = new EfficientListAdapter(this,list);
+			setListAdapter(mAdapter);
+		}
 	}
 
 	@Override

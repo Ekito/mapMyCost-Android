@@ -114,6 +114,10 @@ public class EfficientListAdapter extends BaseAdapter {
 	public int getItemViewType(int position) {
 		return mData.get(position).getMatched()? TYPE_NOT_MATCHED : TYPE_MATCHED;
 	}
+	
+	public void setData(ArrayList<Transaction> data) {
+		mData = data;
+	}
 
 	static class ViewHolder {
 		TextView title;

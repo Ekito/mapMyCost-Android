@@ -5,4 +5,5 @@
     
     <string name="shot_callback_ok">Photo saved to your album</string>
     <string name="shot_callback_error">Issue while saving to album</string>
+    <string name="menu_refresh">Refresh</string>
 </resources>

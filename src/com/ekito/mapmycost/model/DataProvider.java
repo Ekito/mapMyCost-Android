@@ -9,7 +9,7 @@ public class DataProvider {
 	
 	private static DataProvider instance = null;
 	protected DataProvider() {
-		// Exists only to defeat instantiation.
+		transactions = new HashMap<String, Transaction>();
 	}
 	public static DataProvider getInstance() {
 		if(instance == null) {
@@ -20,8 +20,8 @@ public class DataProvider {
 	public HashMap<String, Transaction> getTransactions() {
 		return transactions;
 	}
-	public void setTransactions(HashMap<String, Transaction> transactions) {
-		this.transactions = transactions;
+	public void addTransactions(HashMap<String, Transaction> transactions) {
+		this.transactions.putAll(transactions);
 	}
 	public static void setInstance(DataProvider instance) {
 		DataProvider.instance = instance;
