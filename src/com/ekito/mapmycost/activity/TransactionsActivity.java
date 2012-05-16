@@ -11,14 +11,12 @@ import org.json.JSONObject;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.GradientDrawable.Orientation;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.actionbarsherlock.R;
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -41,6 +39,7 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		// handler used on a getTransactions request
 		mRequestHandler = new RequestHandler(this, "Please wait...") {
 			@Override
 			public void onSuccess(JSONArray array) {
@@ -73,8 +72,10 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 			}
 		};
 
+		// get transactions
 		startTransactionsRequest();
 
+		// init UI
 		getListView().setOnItemClickListener(this);
 		getListView().setDivider(new ColorDrawable(getResources().getColor(R.color.color_divider)));
 		getListView().setDividerHeight(1);
@@ -104,6 +105,8 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 	}
 
 	private void updateList() {
+		
+		// update UI with new data
 		HashMap<String,Transaction> transactions = DataProvider.getInstance().getTransactions();
 
 		ArrayList<Transaction> list = new ArrayList<Transaction>(transactions.values());
@@ -133,6 +136,7 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 			setListAdapter(mAdapter);
 		}
 		
+		// display toast with number of transactions to map
 		int nbNotMapped = 0;
 		for (Transaction t : mAdapter.getData()) {
 			if (t.isMapped()) 	break;
@@ -151,6 +155,7 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		// refresh list when we get back to this activity
 		if (requestCode == ACTIVITY_RESULT) {
 			startTransactionsRequest();
 		}

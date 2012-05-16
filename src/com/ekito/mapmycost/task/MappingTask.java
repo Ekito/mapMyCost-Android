@@ -8,7 +8,7 @@ import com.ekito.mapmycost.communication.RestClient;
 
 public class MappingTask extends AsyncTask<String, String, String> {
 	
-	private static final String TAG = "SendPictureTask";
+//	private static final String TAG = "SendPictureTask";
 	
 	private String mId;
 	private Float mLatitude;

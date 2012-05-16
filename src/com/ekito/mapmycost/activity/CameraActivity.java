@@ -1,12 +1,10 @@
 package com.ekito.mapmycost.activity;
 
-import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.hardware.Camera;
-import android.media.ExifInterface;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,6 +32,7 @@ public class CameraActivity extends Activity {
 
 		try {
 
+			// init camera
 			camera = getCameraInstance();
 			cameraPreview = new CameraPreview(this, camera);
 			final FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
@@ -47,27 +46,26 @@ public class CameraActivity extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
+		
 		// release camera resources
-		releaseCamera();
+		if (camera != null) {
+			camera.release(); // release the camera for other applications
+			camera = null;
+		}
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
+		// re alloc camera resources
 		try {
 			if (camera == null) {
 				camera = getCameraInstance();
 				cameraPreview.setPreview(camera);
 			}
 		} catch (final HardwareException e) {
-		}
-	}
-	
-	protected void releaseCamera() {
-		if (camera != null) {
-			camera.release(); // release the camera for other applications
-			camera = null;
+			Log.e(TAG, e.getMessage());
 		}
 	}
 
@@ -120,14 +118,6 @@ public class CameraActivity extends Activity {
 
 	public void shotCallback(String path) {
 
-		float[] output = null;
-		try {
-			ExifInterface blabla = new ExifInterface(path);
-			blabla.getLatLong(output);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		int msg_id;
 		
 		if (path == null) {
@@ -145,7 +135,11 @@ public class CameraActivity extends Activity {
 			});
 			
 		}
+		
+		// display toast
 		Toast.makeText(this, getResources().getString(msg_id), Toast.LENGTH_LONG).show();
+		
+		// release focus
 		camera.startPreview();
 	}
 	
