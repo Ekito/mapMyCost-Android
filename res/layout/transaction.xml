@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
-	
-	    
     <LinearLayout 
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+	    android:padding="20dp">
 	    <TextView 
 	       	android:id="@+id/title"
 	        android:layout_width="fill_parent"
@@ -58,6 +57,7 @@
 	    	android:minHeight="200dp"
 	    	android:visibility="gone"
 	    	android:onClick="pickImageFromAlbum"
-	    	android:background="@android:color/white" />
+	    	android:background="@drawable/bordered_bg"
+	    	android:layout_marginTop="20dp" />
         </LinearLayout>
 </ScrollView>

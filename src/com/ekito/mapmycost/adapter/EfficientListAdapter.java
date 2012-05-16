@@ -113,6 +113,10 @@ public class EfficientListAdapter extends BaseAdapter {
 		return mData.get(position).isMapped()? TYPE_MATCHED : TYPE_NOT_MATCHED;
 	}
 	
+	public ArrayList<Transaction> getData() {
+		return mData;
+	}
+	
 	public void setData(ArrayList<Transaction> data) {
 		mData = data;
 	}

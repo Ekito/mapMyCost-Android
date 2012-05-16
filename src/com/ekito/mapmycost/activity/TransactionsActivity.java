@@ -10,10 +10,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.GradientDrawable.Orientation;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.actionbarsherlock.R;
@@ -72,6 +76,8 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 		startTransactionsRequest();
 
 		getListView().setOnItemClickListener(this);
+		getListView().setDivider(new ColorDrawable(getResources().getColor(R.color.color_divider)));
+		getListView().setDividerHeight(1);
 	}
 
 	@Override
@@ -126,6 +132,13 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 			mAdapter = new EfficientListAdapter(this,list);
 			setListAdapter(mAdapter);
 		}
+		
+		int nbNotMapped = 0;
+		for (Transaction t : mAdapter.getData()) {
+			if (t.isMapped()) 	break;
+			else				nbNotMapped++;
+		}
+		Toast.makeText(this, "You have "+nbNotMapped+" transactions to map.", Toast.LENGTH_LONG).show();
 	}
 
 	@Override

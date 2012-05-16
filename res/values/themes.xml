@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   	<style name="Theme.MMC" parent="Theme.Sherlock.Light">
+	    <item name="actionBarStyle">@style/Widget.MMC.ActionBar</item>
+	    <item name="android:actionBarStyle">@style/Widget.MMC.ActionBar</item>
+	</style>
+	
+	<style name="Widget.MMC.ActionBar" parent="Widget.Sherlock.ActionBar">
+	    <item name="android:background">#ff000000</item>
+	    <item name="background">#ff000000</item>
+	    <item name="android:titleTextStyle">@style/Widget.MMC.TitleTextStyle</item>
+	    <item name="titleTextStyle">@style/Widget.MMC.TitleTextStyle</item>
+    </style>
+
+    <style name="Widget.MMC.TitleTextStyle" parent="TextAppearance.Sherlock.Widget.ActionBar.Title">
+        <item name="android:textColor">#ffffffff</item>
+    </style>
+</resources>
