@@ -28,12 +28,6 @@ public class MappingTask extends AsyncTask<String, String, String> {
 	protected String doInBackground(String... params) {
 
 		RestClient.putMapping(mId, mLatitude, mLongitude, mBmp, mHandler);
-
-		// free bitmap memory to avoid
-		// OutOfMemoryException
-		mBmp.recycle();
-		mBmp = null;
-		System.gc();
 		
 		return null;
 	}
