@@ -90,6 +90,10 @@ public class TransactionsActivity extends SherlockListActivity implements OnItem
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_map:
+			Intent intent = new Intent(this, HeatMapActivity.class);
+			startActivity(intent);
+			break;
 		case R.id.menu_refresh:
 			startTransactionsRequest();
 			break;
