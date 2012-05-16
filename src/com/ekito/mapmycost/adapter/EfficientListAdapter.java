@@ -77,7 +77,7 @@ public class EfficientListAdapter extends BaseAdapter {
 		// by ListView is null.
 		if (convertView == null) {
 			
-			int layout_id = (type == TYPE_MATCHED)? R.layout.raw : R.layout.highlighted_raw;
+			int layout_id = (type == TYPE_MATCHED)? R.layout.row : R.layout.highlighted_row;
 
 			convertView = mInflater.inflate(layout_id, null);
 
