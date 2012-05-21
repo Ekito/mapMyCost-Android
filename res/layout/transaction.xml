@@ -7,7 +7,7 @@
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
         android:orientation="vertical"
-	    android:padding="20dp">
+	    android:padding="@dimen/layout_padding">
 	    <TextView 
 	       	android:id="@+id/title"
 	        android:layout_width="fill_parent"
@@ -36,28 +36,30 @@
 	    <com.ekito.mapmycost.view.MapView
 	        android:id="@+id/mapview"
 			 android:layout_width="match_parent"
-			 android:layout_height="200dp"
+			 android:layout_height="@dimen/item_height"
 			 android:clickable="true"
 			 android:apiKey="0-o-Xh96kLvQVf0zM3qGMILCdh-WQhm91mfSgWg"
 	    	android:visibility="gone"
+	    	android:layout_marginTop="@dimen/layout_padding"
 			 />
 	    
 	    <ImageView
 		    android:id="@+id/picture"
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
-	    	android:minHeight="200dp"
-	    	android:visibility="gone" />
+	    	android:minHeight="@dimen/item_height"
+	    	android:visibility="gone"
+	    	android:layout_marginTop="@dimen/layout_padding" />
 	    
 	    <Button
 		    android:id="@+id/pick_image"
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
-	    	android:text="Pick an image from gallery"
-	    	android:minHeight="200dp"
+	    	android:text="@string/pick_image"
+	    	android:minHeight="@dimen/item_height"
 	    	android:visibility="gone"
 	    	android:onClick="pickImageFromAlbum"
 	    	android:background="@drawable/bordered_bg"
-	    	android:layout_marginTop="20dp" />
+	    	android:layout_marginTop="@dimen/layout_padding" />
         </LinearLayout>
 </ScrollView>

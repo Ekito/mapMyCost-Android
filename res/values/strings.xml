@@ -7,4 +7,5 @@
     <string name="shot_callback_error">Issue while saving to album</string>
     <string name="menu_map">Heat map</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="pick_image">Pick an image from gallery</string>
 </resources>
