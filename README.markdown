@@ -9,3 +9,4 @@ This Android app was made for [Axa API challenge 2012](https://developer.axabanq
 - actionbarsherloc-plugin-map jar file is a plugin to ActionBarSherlock.
 All jar files included in the project need to be added to the build path.
 - [android-http-image-manager](http://code.google.com/p/android-http-image-manager/) is used to handle remote images. The library is included with the sources.
+- [Zubhium](https://www.zubhium.com/) is included for beta testing.
